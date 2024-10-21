@@ -1,22 +1,22 @@
 package com.codeintelligence.delivery.service;
 
-import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
 
 /**
  * Service interface for managing truck drivers
  */
 public interface TruckDriverService {
 
-    TruckDriverEntity saveTruckDriver(TruckDriverEntity truckDriver);
+    TruckDriverDTO saveTruckDriver(TruckDriverDTO truckDriver);
 
-    List<TruckDriverEntity> findAllTruckDrivers();
+    List<TruckDriverDTO> findAllTruckDrivers();
 
-    Optional<TruckDriverEntity> findTruckDriverById(Long id);
+    Optional<TruckDriverDTO> findTruckDriverById(Long id);
 
-    Optional<TruckDriverEntity> updateTruckDriverById(Long id, TruckDriverEntity truckDriver);
+    Optional<TruckDriverDTO> updateTruckDriverById(Long id, TruckDriverDTO truckDriver);
 
     void deleteTruckDriverById(Long id);
 }

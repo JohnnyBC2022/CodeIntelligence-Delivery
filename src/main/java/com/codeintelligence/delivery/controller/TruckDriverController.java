@@ -1,7 +1,6 @@
 package com.codeintelligence.delivery.controller;
 
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
-import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.service.TruckDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ public class TruckDriverController {
 
     private final TruckDriverService truckDriverService;
 
-    @Autowired
+ // El autowired no es necesario si se está inyectando la dependencia por constructor
     public TruckDriverController(TruckDriverService truckDriverService) {
         this.truckDriverService = truckDriverService;
     }
@@ -34,6 +33,14 @@ public class TruckDriverController {
      */
     @PostMapping(value = "/save")
     public ResponseEntity<TruckDriverDTO> createTruckDriver(@RequestBody TruckDriverDTO truckDriverDTO) {
+    	TruckDriverDTO truckDriver = truckDriverService.saveTruckDriver(truckDriverDTO);
+    	if(truckDriver != null) {
+    		return new ResponseEntity<>(truckDriver, HttpStatus.CREATED);
+    	}else {
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
+    	
+    	/*
         try {
             TruckDriverEntity truckDriver = convertToEntity(truckDriverDTO);
             TruckDriverEntity createdTruckDriver = truckDriverService.saveTruckDriver(truckDriver);
@@ -41,6 +48,7 @@ public class TruckDriverController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        */
     }
 
     /**
@@ -50,6 +58,13 @@ public class TruckDriverController {
      */
     @GetMapping
     public ResponseEntity<List<TruckDriverDTO>> getAllTruckDrivers() {
+    	List<TruckDriverDTO> truckDrivers = truckDriverService.findAllTruckDrivers();
+    	if(truckDrivers.size() > 0) {
+    		return new ResponseEntity<>(truckDrivers, HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	/*
         try {
             List<TruckDriverEntity> truckDrivers = truckDriverService.findAllTruckDrivers();
             List<TruckDriverDTO> truckDriverDTOs = truckDrivers.stream()
@@ -59,6 +74,7 @@ public class TruckDriverController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        */
     }
 
     /**
@@ -69,6 +85,15 @@ public class TruckDriverController {
      */
     @GetMapping("/get/{id}")
     public ResponseEntity<TruckDriverDTO> getTruckDriverById(@PathVariable Long id) {
+    	
+    	TruckDriverDTO truckDriver = truckDriverService.findTruckDriverById(id).get();
+    	if(truckDriver != null) {
+    		return new ResponseEntity<>(truckDriver, HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	
+    	/*
         try {
             Optional<TruckDriverEntity> truckDriver = truckDriverService.findTruckDriverById(id);
             return truckDriver.map(driver -> new ResponseEntity<>(convertToDTO(driver), HttpStatus.OK))
@@ -76,6 +101,7 @@ public class TruckDriverController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        */
     }
 
     /**
@@ -87,6 +113,14 @@ public class TruckDriverController {
      */
     @PutMapping("/update/{id}")
     public ResponseEntity<TruckDriverDTO> updateTruckDriverById(@PathVariable Long id, @RequestBody TruckDriverDTO truckDriverDTO) {
+    	TruckDriverDTO updatedTruckDriver = truckDriverService.updateTruckDriverById(id, truckDriverDTO).get();
+    	
+    	if(updatedTruckDriver != null) {
+    		return new ResponseEntity<>(updatedTruckDriver, HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	/*
         try {
             TruckDriverEntity truckDriver = convertToEntity(truckDriverDTO);
             Optional<TruckDriverEntity> updatedTruckDriver = truckDriverService.updateTruckDriverById(id, truckDriver);
@@ -95,6 +129,7 @@ public class TruckDriverController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        */
     }
 
     /**
@@ -113,39 +148,4 @@ public class TruckDriverController {
         }
     }
 
-    // Conversion methods between entities
-
-    /**
-     * Converts a truck driver entity to its corresponding DTO.
-     *
-     * @param truckDriver the truck driver entity
-     * @return the truck driver DTO
-     */
-    private TruckDriverDTO convertToDTO(TruckDriverEntity truckDriver) {
-        TruckDriverDTO dto = new TruckDriverDTO();
-        dto.setId(truckDriver.getId());
-        dto.setDni(truckDriver.getDni());
-        dto.setName(truckDriver.getName());
-        dto.setPhone(truckDriver.getPhone());
-        dto.setAddress(truckDriver.getAddress());
-        dto.setSalary(truckDriver.getSalary());
-        return dto;
-    }
-
-    /**
-     * Converts a truck driver DTO to its corresponding entity.
-     *
-     * @param dto the truck driver DTO
-     * @return the truck driver entity
-     */
-    private TruckDriverEntity convertToEntity(TruckDriverDTO dto) {
-        TruckDriverEntity truckDriver = new TruckDriverEntity();
-        truckDriver.setId(dto.getId());
-        truckDriver.setDni(dto.getDni());
-        truckDriver.setName(dto.getName());
-        truckDriver.setPhone(dto.getPhone());
-        truckDriver.setAddress(dto.getAddress());
-        truckDriver.setSalary(dto.getSalary());
-        return truckDriver;
-    }
 }

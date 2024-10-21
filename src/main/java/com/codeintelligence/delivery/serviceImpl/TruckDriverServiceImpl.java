@@ -1,13 +1,15 @@
 package com.codeintelligence.delivery.serviceImpl;
 
-import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
-import com.codeintelligence.delivery.repository.TruckDriverRepository;
-import com.codeintelligence.delivery.service.TruckDriverService;
-import org.springframework.stereotype.Service;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
+import com.codeintelligence.delivery.repository.TruckDriverRepository;
+import com.codeintelligence.delivery.service.TruckDriverService;
+import com.codeintelligence.delivery.utilities.Mapper;
 
 /**
  * Service implementation for managing truck drivers
@@ -16,14 +18,16 @@ import java.util.Optional;
 public class TruckDriverServiceImpl implements TruckDriverService {
 
     private final TruckDriverRepository truckDriverRepository;
+    Mapper mapper;
 
     /**
      * Constructs a TruckDriverServiceImpl with the specified TruckDriverRepository.
      *
      * @param truckDriverRepository the repository used to perform CRUD operations on truck drivers
      */
-    public TruckDriverServiceImpl(TruckDriverRepository truckDriverRepository) {
+    public TruckDriverServiceImpl(TruckDriverRepository truckDriverRepository, Mapper mapper) {
         this.truckDriverRepository = truckDriverRepository;
+        this.mapper = mapper;
     }
 
     /**
@@ -34,13 +38,13 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      * @throws RuntimeException if there is an error while saving the truck driver
      */
     @Override
-    public TruckDriverEntity saveTruckDriver(TruckDriverEntity truckDriver) {
+    public TruckDriverDTO saveTruckDriver(TruckDriverDTO truckDriver) {
         if (truckDriver == null || truckDriver.getName() == null || truckDriver.getPhone() == null) {
             throw new IllegalArgumentException("TruckDriverEntity cannot be null or missing required fields.");
         }
 
         try {
-            return truckDriverRepository.save(truckDriver);
+            return mapper.convertToDTO(truckDriverRepository.save(mapper.convertToEntity(truckDriver))); // Podria simplificarse
         } catch (Exception e) {
             System.out.println("[saveTruckDriver] exception: " + e.getMessage());
             throw new RuntimeException("Error saving truck driver: " + e.getMessage());
@@ -54,9 +58,11 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      * @throws RuntimeException if there is an error while retrieving the truck drivers
      */
     @Override
-    public List<TruckDriverEntity> findAllTruckDrivers() {
-        try {
-            List<TruckDriverEntity> truckDrivers = truckDriverRepository.findAll();
+    public List<TruckDriverDTO> findAllTruckDrivers() {
+        try { 
+            List<TruckDriverDTO> truckDrivers = truckDriverRepository.findAll().stream()
+            		.map(t -> mapper.convertToDTO(t)) // Se mapea la entidad a Dto
+            		.toList();
             return truckDrivers.isEmpty() ? Collections.emptyList() : truckDrivers;
         } catch (Exception e) {
             System.out.println("[findAllTruckDrivers] exception: " + e.getMessage());
@@ -72,13 +78,13 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      * @throws RuntimeException if there is an error while retrieving the truck driver
      */
     @Override
-    public Optional<TruckDriverEntity> findTruckDriverById(Long id) {
+    public Optional<TruckDriverDTO> findTruckDriverById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ID cannot be null.");
         }
 
         try {
-            return truckDriverRepository.findById(id);
+            return truckDriverRepository.findById(id).map(t -> mapper.convertToDTO(t));
         } catch (Exception e) {
             System.out.println("[findTruckDriverById] exception: " + e.getMessage());
             throw new RuntimeException("Error retrieving truck driver by ID: " + e.getMessage());
@@ -93,22 +99,22 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      * @return an Optional containing the updated TruckDriverEntity, or empty if not found
      */
     @Override
-    public Optional<TruckDriverEntity> updateTruckDriverById(Long id, TruckDriverEntity truckDriver) {
+    public Optional<TruckDriverDTO> updateTruckDriverById(Long id, TruckDriverDTO truckDriver) {
         if (id == null || truckDriver == null) {
             throw new IllegalArgumentException("ID and TruckDriverEntity cannot be null.");
         }
 
         try {
-            Optional<TruckDriverEntity> existingTruckDriver = truckDriverRepository.findById(id);
+            Optional<TruckDriverDTO> existingTruckDriver = truckDriverRepository.findById(id).map(t -> mapper.convertToDTO(t));
 
             if (existingTruckDriver.isPresent()) {
-                TruckDriverEntity updatedTruckDriver = existingTruckDriver.get();
+            	TruckDriverDTO updatedTruckDriver = existingTruckDriver.get(); // Obtenemos el DTO
                 updatedTruckDriver.setName(truckDriver.getName());
                 updatedTruckDriver.setPhone(truckDriver.getPhone());
                 updatedTruckDriver.setAddress(truckDriver.getAddress());
                 updatedTruckDriver.setSalary(truckDriver.getSalary());
 
-                truckDriverRepository.save(updatedTruckDriver);
+                truckDriverRepository.save(mapper.convertToEntity(updatedTruckDriver)); // Guardamos la entity mapeando el DTO
                 return Optional.of(updatedTruckDriver);
             } else {
                 System.out.println("Truck driver with ID " + id + " not found.");
@@ -133,10 +139,10 @@ public class TruckDriverServiceImpl implements TruckDriverService {
         }
 
         try {
-            Optional<TruckDriverEntity> truckDriverOptional = truckDriverRepository.findById(id);
+            Optional<TruckDriverDTO> truckDriverOptional = truckDriverRepository.findById(id).map(t -> mapper.convertToDTO(t));
 
             if (truckDriverOptional.isPresent()) {
-                truckDriverRepository.delete(truckDriverOptional.get());
+                truckDriverRepository.delete(mapper.convertToEntity(truckDriverOptional.get()));
                 System.out.println("Truck driver with ID " + id + " has been deleted.");
             } else {
                 System.out.println("Truck driver with ID " + id + " not found.");
