@@ -3,9 +3,9 @@ package com.codeintelligence.delivery.serviceImpl;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.repository.TruckDriverRepository;
 import com.codeintelligence.delivery.service.TruckDriverService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +22,6 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      *
      * @param truckDriverRepository the repository used to perform CRUD operations on truck drivers
      */
-    @Autowired
     public TruckDriverServiceImpl(TruckDriverRepository truckDriverRepository) {
         this.truckDriverRepository = truckDriverRepository;
     }
@@ -36,6 +35,10 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      */
     @Override
     public TruckDriverEntity saveTruckDriver(TruckDriverEntity truckDriver) {
+        if (truckDriver == null || truckDriver.getName() == null || truckDriver.getPhone() == null) {
+            throw new IllegalArgumentException("TruckDriverEntity cannot be null or missing required fields.");
+        }
+
         try {
             return truckDriverRepository.save(truckDriver);
         } catch (Exception e) {
@@ -47,13 +50,14 @@ public class TruckDriverServiceImpl implements TruckDriverService {
     /**
      * Retrieves all truck driver entities from the database.
      *
-     * @return a list of all TruckDriverEntity objects
+     * @return a list of all TruckDriverEntity objects, or an empty list if none found
      * @throws RuntimeException if there is an error while retrieving the truck drivers
      */
     @Override
     public List<TruckDriverEntity> findAllTruckDrivers() {
         try {
-            return truckDriverRepository.findAll();
+            List<TruckDriverEntity> truckDrivers = truckDriverRepository.findAll();
+            return truckDrivers.isEmpty() ? Collections.emptyList() : truckDrivers;
         } catch (Exception e) {
             System.out.println("[findAllTruckDrivers] exception: " + e.getMessage());
             throw new RuntimeException("Error retrieving truck drivers: " + e.getMessage());
@@ -69,6 +73,10 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      */
     @Override
     public Optional<TruckDriverEntity> findTruckDriverById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID cannot be null.");
+        }
+
         try {
             return truckDriverRepository.findById(id);
         } catch (Exception e) {
@@ -86,6 +94,10 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      */
     @Override
     public Optional<TruckDriverEntity> updateTruckDriverById(Long id, TruckDriverEntity truckDriver) {
+        if (id == null || truckDriver == null) {
+            throw new IllegalArgumentException("ID and TruckDriverEntity cannot be null.");
+        }
+
         try {
             Optional<TruckDriverEntity> existingTruckDriver = truckDriverRepository.findById(id);
 
@@ -102,6 +114,7 @@ public class TruckDriverServiceImpl implements TruckDriverService {
                 System.out.println("Truck driver with ID " + id + " not found.");
                 return Optional.empty();
             }
+
         } catch (Exception e) {
             System.out.println("[updateTruckDriverById] exception: " + e.getMessage());
             throw new RuntimeException("Error updating truck driver by ID: " + e.getMessage());
@@ -115,6 +128,10 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      */
     @Override
     public void deleteTruckDriverById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID cannot be null.");
+        }
+
         try {
             Optional<TruckDriverEntity> truckDriverOptional = truckDriverRepository.findById(id);
 
