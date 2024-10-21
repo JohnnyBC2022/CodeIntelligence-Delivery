@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 /**
  * Service implementation for managing truck drivers
  */
@@ -45,7 +44,6 @@ public class TruckDriverServiceImpl implements TruckDriverService {
         }
     }
 
-
     /**
      * Retrieves all truck driver entities from the database.
      *
@@ -62,36 +60,34 @@ public class TruckDriverServiceImpl implements TruckDriverService {
         }
     }
 
-
     /**
-     * Retrieves a truck driver entity by its DNI.
+     * Retrieves a truck driver entity by its ID.
      *
-     * @param dni the DNI of the truck driver to retrieve
+     * @param id the ID of the truck driver to retrieve
      * @return an Optional containing the found TruckDriverEntity, or empty if not found
      * @throws RuntimeException if there is an error while retrieving the truck driver
      */
     @Override
-    public Optional<TruckDriverEntity> findTruckDriverByDni(String dni) {
+    public Optional<TruckDriverEntity> findTruckDriverById(Long id) {
         try {
-            return truckDriverRepository.findByDni(dni);
+            return truckDriverRepository.findById(id);
         } catch (Exception e) {
-            System.out.println("[findTruckDriverByDni] exception: " + e.getMessage());
-            throw new RuntimeException("Error retrieving truck driver by DNI: " + e.getMessage());
+            System.out.println("[findTruckDriverById] exception: " + e.getMessage());
+            throw new RuntimeException("Error retrieving truck driver by ID: " + e.getMessage());
         }
     }
 
     /**
-     * Updates a truck driver entity by its DNI.
+     * Updates a truck driver entity by its ID.
      *
-     * @param dni         the DNI of the truck driver to update
+     * @param id          the ID of the truck driver to update
      * @param truckDriver the truck driver entity with updated data
      * @return an Optional containing the updated TruckDriverEntity, or empty if not found
      */
-
     @Override
-    public Optional<TruckDriverEntity> updateTruckDriverByDni(String dni, TruckDriverEntity truckDriver) {
+    public Optional<TruckDriverEntity> updateTruckDriverById(Long id, TruckDriverEntity truckDriver) {
         try {
-            Optional<TruckDriverEntity> existingTruckDriver = truckDriverRepository.findByDni(dni);
+            Optional<TruckDriverEntity> existingTruckDriver = truckDriverRepository.findById(id);
 
             if (existingTruckDriver.isPresent()) {
                 TruckDriverEntity updatedTruckDriver = existingTruckDriver.get();
@@ -103,36 +99,34 @@ public class TruckDriverServiceImpl implements TruckDriverService {
                 truckDriverRepository.save(updatedTruckDriver);
                 return Optional.of(updatedTruckDriver);
             } else {
-                System.out.println("Truck driver with DNI " + dni + " not found.");
+                System.out.println("Truck driver with ID " + id + " not found.");
                 return Optional.empty();
             }
         } catch (Exception e) {
-            System.out.println("[updateTruckDriverByDni] exception: " + e.getMessage());
-            throw new RuntimeException("Error updating truck driver by DNI: " + e.getMessage());
+            System.out.println("[updateTruckDriverById] exception: " + e.getMessage());
+            throw new RuntimeException("Error updating truck driver by ID: " + e.getMessage());
         }
     }
 
     /**
-     * Deletes a truck driver entity by its DNI.
+     * Deletes a truck driver entity by its ID.
      *
-     * @param dni the DNI of the truck driver to delete
+     * @param id the ID of the truck driver to delete
      */
-
     @Override
-    public void deleteTruckDriverByDni(String dni) {
+    public void deleteTruckDriverById(Long id) {
         try {
-            Optional<TruckDriverEntity> truckDriverOptional = truckDriverRepository.findByDni(dni);
+            Optional<TruckDriverEntity> truckDriverOptional = truckDriverRepository.findById(id);
 
             if (truckDriverOptional.isPresent()) {
                 truckDriverRepository.delete(truckDriverOptional.get());
-                System.out.println("Truck driver with DNI " + dni + " has been deleted.");
+                System.out.println("Truck driver with ID " + id + " has been deleted.");
             } else {
-                System.out.println("Truck driver with DNI " + dni + " not found.");
+                System.out.println("Truck driver with ID " + id + " not found.");
             }
         } catch (Exception e) {
-            System.out.println("[deleteByDni] exception: " + e.getMessage());
-            throw new RuntimeException("Error deleting truck driver by DNI: " + e.getMessage());
+            System.out.println("[deleteTruckDriverById] exception: " + e.getMessage());
+            throw new RuntimeException("Error deleting truck driver by ID: " + e.getMessage());
         }
     }
-
 }

@@ -13,11 +13,4 @@ import java.util.Optional;
 @Repository
 public interface TruckDriverRepository extends JpaRepository<TruckDriverEntity,Long> {
 
-    /**
-     * Finds a truck driver entity by its DNI.
-     *
-     * @param dni the DNI of the truck driver to retrieve
-     * @return an Optional containing the found TruckDriverEntity, or empty if not found
-     */
-    Optional<TruckDriverEntity> findByDni(String dni);
 }

@@ -8,17 +8,15 @@ import java.util.Optional;
 /**
  * Service interface for managing truck drivers
  */
-
 public interface TruckDriverService {
 
     TruckDriverEntity saveTruckDriver(TruckDriverEntity truckDriver);
 
     List<TruckDriverEntity> findAllTruckDrivers();
 
-    Optional<TruckDriverEntity> findTruckDriverByDni(String dni);
+    Optional<TruckDriverEntity> findTruckDriverById(Long id);
 
-    Optional<TruckDriverEntity> updateTruckDriverByDni(String dni, TruckDriverEntity truckDriver);
+    Optional<TruckDriverEntity> updateTruckDriverById(Long id, TruckDriverEntity truckDriver);
 
-    void deleteTruckDriverByDni(String dni);
-
+    void deleteTruckDriverById(Long id);
 }
