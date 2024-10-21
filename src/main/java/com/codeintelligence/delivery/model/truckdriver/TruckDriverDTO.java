@@ -1,35 +1,18 @@
 package com.codeintelligence.delivery.model.truckdriver;
 
-import jakarta.persistence.*;
-
 /**
- * Entity that represents a truck driver in the transportation company.
+ * Data Transfer Object for a truck driver in the transportation company.
  */
-@Entity
-@Table(name = "truck_driver")
-public class TruckDriverEntity {
+public class TruckDriverDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_truck_driver")
     private Long id;
-
-    @Column(name = "dni", nullable = false, unique = true)
     private String dni;
-
-    @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "phone", nullable = false)
     private String phone;
-
-    @Column(name = "address", nullable = false)
     private String address;
-
-    @Column(name = "salary", nullable = false)
     private Double salary;
 
-    // Getters y Setters
+    // Getters and setters
 
     /**
      * Gets the unique identifier of the truck driver.
@@ -139,17 +122,17 @@ public class TruckDriverEntity {
         this.salary = salary;
     }
 
-    /**
-     * Default constructor for truck driver
-     * Initializes a new instance of TruckDriver
-     */
-
     // Constructors
-    public TruckDriverEntity() {
+
+    /**
+     * Default constructor for TruckDriverDTO.
+     * Initializes a new instance of TruckDriverDTO.
+     */
+    public TruckDriverDTO() {
     }
 
     /**
-     * Constructor for truck driver with parameters.
+     * Constructor for TruckDriverDTO with parameters.
      *
      * @param id      the unique identifier of the truck driver.
      * @param dni     the DNI of the truck driver.
@@ -158,7 +141,7 @@ public class TruckDriverEntity {
      * @param address the address of the truck driver.
      * @param salary  the salary of the truck driver.
      */
-    public TruckDriverEntity(Long id, String dni, String name, String phone, String address, Double salary) {
+    public TruckDriverDTO(Long id, String dni, String name, String phone, String address, Double salary) {
         this.id = id;
         this.dni = dni;
         this.name = name;
@@ -167,3 +150,4 @@ public class TruckDriverEntity {
         this.salary = salary;
     }
 }
+
