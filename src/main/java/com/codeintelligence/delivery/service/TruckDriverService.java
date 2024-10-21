@@ -15,10 +15,10 @@ public interface TruckDriverService {
 
     List<TruckDriverEntity> findAllTruckDrivers();
 
-    Optional<TruckDriverEntity> findByDni(String dni);
+    Optional<TruckDriverEntity> findTruckDriverByDni(String dni);
 
     Optional<TruckDriverEntity> updateTruckDriverByDni(String dni, TruckDriverEntity truckDriver);
 
-    void deleteByDni(String dni);
+    void deleteTruckDriverByDni(String dni);
 
 }
