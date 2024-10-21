@@ -3,12 +3,14 @@ package com.codeintelligence.delivery.serviceImpl;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.repository.TruckRepository;
 import com.codeintelligence.delivery.service.TruckService;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TruckServiceImpl implements TruckService {
 
     private final TruckRepository truckRepository;
