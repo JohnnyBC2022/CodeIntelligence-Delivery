@@ -1,5 +1,6 @@
 package com.codeintelligence.delivery.model.truck;
 
+import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import jakarta.persistence.*;
 
 /**
@@ -22,6 +23,10 @@ public class TruckEntity {
 
     @Column(name = "kilometers", nullable = false)
     private Double kilometers;
+
+    @ManyToOne
+    @JoinColumn(name = "id_truck_driver", nullable = false)
+    private TruckDriverEntity truckDriver;
 
     // Getters y Setters
 
@@ -97,6 +102,24 @@ public class TruckEntity {
         this.kilometers = kilometers;
     }
 
+    /**
+     * Gets the truck driver assigned to the truck.
+     *
+     * @return the truck driver.
+     */
+    public TruckDriverEntity getTruckDriver() {
+        return truckDriver;
+    }
+
+    /**
+     * Sets the truck driver assigned to the truck.
+     *
+     * @param truckDriver the truck driver to set.
+     */
+    public void setTruckDriver(TruckDriverEntity truckDriver) {
+        this.truckDriver = truckDriver;
+    }
+
     // Constructores
 
     /**
@@ -107,16 +130,19 @@ public class TruckEntity {
 
     /**
      * Constructor for truck with parameters.
+     * Initializes a new instance of Truck with the provided attributes and the assigned truck driver.
      *
      * @param id           the unique identifier of the truck.
      * @param licensePlate the license plate of the truck.
      * @param model        the model of the truck.
      * @param kilometers   the kilometers traveled by the truck.
+     * @param truckDriver  the truck driver assigned to the truck.
      */
-    public TruckEntity(Long id, String licensePlate, String model, Double kilometers) {
+    public TruckEntity(Long id, String licensePlate, String model, Double kilometers, TruckDriverEntity truckDriver) {
         this.id = id;
         this.licensePlate = licensePlate;
         this.model = model;
         this.kilometers = kilometers;
+        this.truckDriver = truckDriver;
     }
 }

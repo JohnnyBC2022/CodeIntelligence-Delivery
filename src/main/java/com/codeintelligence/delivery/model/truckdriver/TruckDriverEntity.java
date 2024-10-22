@@ -1,6 +1,9 @@
 package com.codeintelligence.delivery.model.truckdriver;
 
+import com.codeintelligence.delivery.model.truck.TruckEntity;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 /**
  * Entity that represents a truck driver in the transportation company.
@@ -28,6 +31,10 @@ public class TruckDriverEntity {
 
     @Column(name = "salary", nullable = false)
     private Double salary;
+
+    @OneToMany(mappedBy = "truckDriver")
+    @Column(name = "trucks", nullable = false)
+    private List<TruckEntity> trucks;
 
     // Getters y Setters
 
@@ -140,16 +147,36 @@ public class TruckDriverEntity {
     }
 
     /**
+     * Gets the list of trucks assigned to the truck driver.
+     *
+     * @return the list of trucks.
+     */
+    public List<TruckEntity> getTrucks() {
+        return trucks;
+    }
+
+    /**
+     * Sets the list of trucks assigned to the truck driver.
+     *
+     * @param trucks the list of trucks to set.
+     */
+    public void setTrucks(List<TruckEntity> trucks) {
+        this.trucks = trucks;
+    }
+
+    // Constructors
+
+
+    /**
      * Default constructor for truck driver
      * Initializes a new instance of TruckDriver
      */
-
-    // Constructors
     public TruckDriverEntity() {
     }
 
     /**
      * Constructor for truck driver with parameters.
+     * Initializes a new instance of TruckDriver with the provided attributes and the assigned trucks.
      *
      * @param id      the unique identifier of the truck driver.
      * @param dni     the DNI of the truck driver.
@@ -157,13 +184,15 @@ public class TruckDriverEntity {
      * @param phone   the phone number of the truck driver.
      * @param address the address of the truck driver.
      * @param salary  the salary of the truck driver.
+     * @param trucks  the list of trucks assigned to the truck driver.
      */
-    public TruckDriverEntity(Long id, String dni, String name, String phone, String address, Double salary) {
+    public TruckDriverEntity(Long id, String dni, String name, String phone, String address, Double salary, List<TruckEntity> trucks) {
         this.id = id;
         this.dni = dni;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.salary = salary;
+        this.trucks = trucks;
     }
 }
