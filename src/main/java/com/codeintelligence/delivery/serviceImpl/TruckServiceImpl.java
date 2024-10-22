@@ -3,6 +3,7 @@ package com.codeintelligence.delivery.serviceImpl;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.repository.TruckRepository;
 import com.codeintelligence.delivery.service.TruckService;
+import com.codeintelligence.delivery.utils.EntityValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -33,7 +34,7 @@ public class TruckServiceImpl implements TruckService {
      */
     @Override
     public TruckEntity saveTruck(TruckEntity truck) {
-        if (truck == null || !isValidTruck(truck)) {
+        if (truck == null || !EntityValidator.isValidTruck(truck)) {
             throw new RuntimeException("Invalid truck data. Make sure all required fields are filled.");
         }
 
@@ -45,17 +46,7 @@ public class TruckServiceImpl implements TruckService {
         }
     }
 
-    /**
-     * Validates the truck data.
-     *
-     * @param truck the TruckEntity object to validate
-     * @return true if valid, false otherwise
-     */
-    private boolean isValidTruck(TruckEntity truck) {
-        return StringUtils.hasText(truck.getLicensePlate()) &&
-                StringUtils.hasText(truck.getModel()) &&
-                truck.getKilometers() != null;
-    }
+
 
     /**
      * Retrieves all truck entities from the database.
@@ -116,7 +107,7 @@ public class TruckServiceImpl implements TruckService {
             throw new IllegalArgumentException("Invalid truck ID.");
         }
 
-        if (truck == null || !isValidTruck(truck)) {
+        if (truck == null || !EntityValidator.isValidTruck(truck)) {
             throw new RuntimeException("Invalid truck data. Make sure all required fields are filled.");
         }
 

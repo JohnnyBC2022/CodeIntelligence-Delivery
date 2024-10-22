@@ -3,6 +3,7 @@ package com.codeintelligence.delivery.serviceImpl;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
 import com.codeintelligence.delivery.repository.TruckDriverTruckRepository;
 import com.codeintelligence.delivery.service.TruckDriverTruckService;
+import com.codeintelligence.delivery.utils.EntityValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -37,7 +38,7 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
      */
     @Override
     public TruckDriverTruckEntity saveTruckDriverTruck(TruckDriverTruckEntity truckDriverTruck) {
-        if (truckDriverTruck == null || !isValidTruckDriverTruck(truckDriverTruck)) {
+        if (truckDriverTruck == null || !EntityValidator.isValidTruckDriverTruck(truckDriverTruck)) {
             throw new RuntimeException("Invalid truck-driver truck data. Make sure all required fields are filled.");
         }
 
@@ -47,18 +48,6 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
             System.out.println("[saveTruckDriverTruck] exception: " + e.getMessage());
             throw new RuntimeException("Error saving truck-driver truck: " + e.getMessage());
         }
-    }
-
-    /**
-     * Validates the TruckDriverTruckEntity.
-     *
-     * @param truckDriverTruck The TruckDriverTruckEntity to validate.
-     * @return true if valid; false otherwise.
-     */
-    private boolean isValidTruckDriverTruck(TruckDriverTruckEntity truckDriverTruck) {
-        return truckDriverTruck.getTruck() != null &&
-                truckDriverTruck.getTruckDriver() != null &&
-                truckDriverTruck.getDate() != null;
     }
 
 
@@ -124,7 +113,7 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
             throw new IllegalArgumentException("Invalid truck - driver truck ID.");
         }
 
-        if (truckDriverTruck == null || !isValidTruckDriverTruck(truckDriverTruck)) {
+        if (truckDriverTruck == null || !EntityValidator.isValidTruckDriverTruck(truckDriverTruck)) {
             throw new RuntimeException("Invalid truck - driver truck data. Make sure all required fields are filled.");
         }
 

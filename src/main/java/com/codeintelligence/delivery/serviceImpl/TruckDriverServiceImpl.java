@@ -3,6 +3,7 @@ package com.codeintelligence.delivery.serviceImpl;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.repository.TruckDriverRepository;
 import com.codeintelligence.delivery.service.TruckDriverService;
+import com.codeintelligence.delivery.utils.EntityValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      */
     @Override
     public TruckDriverEntity saveTruckDriver(TruckDriverEntity truckDriver) {
-        if (truckDriver == null || truckDriver.getName() == null || truckDriver.getPhone() == null) {
+        if (truckDriver == null || !EntityValidator.isValidTruckDriver(truckDriver)) {
             throw new IllegalArgumentException("TruckDriverEntity cannot be null or missing required fields.");
         }
 
@@ -94,8 +95,12 @@ public class TruckDriverServiceImpl implements TruckDriverService {
      */
     @Override
     public Optional<TruckDriverEntity> updateTruckDriverById(Long id, TruckDriverEntity truckDriver) {
-        if (id == null || truckDriver == null) {
-            throw new IllegalArgumentException("ID and TruckDriverEntity cannot be null.");
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Invalid truck driver ID.");
+        }
+
+        if (truckDriver == null || !EntityValidator.isValidTruckDriver(truckDriver)) {
+            throw new RuntimeException("Invalid truck driver data. Make sure all required fields are filled.");
         }
 
         try {
