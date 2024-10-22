@@ -15,7 +15,7 @@ public class TruckDriverTruckEntity {
      * including the date when the driver was assigned to drive a particular truck.
      * This entity serves as the intermediate table in the many-to-many relationship
      * between TruckDriverEntity and TruckEntity.
-     *
+     * <p>
      * Ensures that a truck driver can drive only one truck per day.
      */
     @Id
