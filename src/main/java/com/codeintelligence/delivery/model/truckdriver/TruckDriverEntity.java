@@ -32,6 +32,12 @@ public class TruckDriverEntity {
     @Column(name = "salary", nullable = false)
     private Double salary;
 
+    /**
+     * Many-to-one relationship with TruckEntity.
+     *
+     *  This annotation indicates that multiple instances of the current entity
+     *  (TruckDriverTruck) can be associated with a single instance of TruckEntity.
+     */
     @OneToMany(mappedBy = "truckDriver")
     @Column(name = "trucks", nullable = false)
     private List<TruckEntity> trucks;

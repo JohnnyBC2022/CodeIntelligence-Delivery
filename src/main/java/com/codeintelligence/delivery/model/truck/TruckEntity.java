@@ -24,6 +24,12 @@ public class TruckEntity {
     @Column(name = "kilometers", nullable = false)
     private Double kilometers;
 
+    /**
+     * Many-to-one relationship with TruckDriverEntity
+     *
+     * This annotation indicates that multiple instances of the current entity
+     *  * (TruckDriverTruck) can be associated with a single instance of TruckDriverEntity.
+     */
     @ManyToOne
     @JoinColumn(name = "id_truck_driver", nullable = false)
     private TruckDriverEntity truckDriver;
