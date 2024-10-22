@@ -15,6 +15,11 @@ public class TruckServiceImpl implements TruckService {
 
     private final TruckRepository truckRepository;
 
+    /**
+     * Constructor for TruckServiceImpl.
+     *
+     * @param truckRepository Repository used to perform CRUD operations on Truck entities.
+     */
     public TruckServiceImpl(TruckRepository truckRepository) {
         this.truckRepository = truckRepository;
     }
