@@ -43,6 +43,7 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
         }
 
         try {
+            System.out.println("New assign was created.");
             return truckDriverTruckRepository.save(truckDriverTruck);
         } catch (Exception e) {
             System.out.println("[saveTruckDriverTruck] exception: " + e.getMessage());
@@ -65,6 +66,7 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
                 System.out.println("No trucks - driver trucks found.");
                 return Collections.emptyList();
             }
+            System.out.println("All assigns has been found.");
             return trucksDriverTrucks;
         } catch (Exception e) {
             System.out.println("[findAllTrucksDriverTrucks] exception: " + e.getMessage());
@@ -91,6 +93,7 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
             if (truckDriverTruck.isEmpty()) {
                 System.out.println("Truck - driver truck with ID " + id + " not found.");
             }
+            System.out.println("Truck - driver truck with ID " + id + " has been found.");
             return truckDriverTruck;
         } catch (Exception e) {
             System.out.println("[findTruckDriverTruckById] exception: " + e.getMessage());
@@ -128,6 +131,7 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
 
 
                 truckDriverTruckRepository.save(updatedTruckDriverTruck);
+                System.out.println("Truck - driver truck with ID " + id + " has been updated.");
                 return Optional.of(updatedTruckDriverTruck);
             } else {
                 System.out.println("Truck - driver truck with ID " + id + " not found.");

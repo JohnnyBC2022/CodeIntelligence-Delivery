@@ -41,6 +41,7 @@ public class TruckDriverServiceImpl implements TruckDriverService {
         }
 
         try {
+            System.out.println("New truck driver created.");
             return truckDriverRepository.save(truckDriver);
         } catch (Exception e) {
             System.out.println("[saveTruckDriver] exception: " + e.getMessage());
@@ -58,6 +59,7 @@ public class TruckDriverServiceImpl implements TruckDriverService {
     public List<TruckDriverEntity> findAllTruckDrivers() {
         try {
             List<TruckDriverEntity> truckDrivers = truckDriverRepository.findAll();
+            System.out.println("All truck drivers has been found.");
             return truckDrivers.isEmpty() ? Collections.emptyList() : truckDrivers;
         } catch (Exception e) {
             System.out.println("[findAllTruckDrivers] exception: " + e.getMessage());
@@ -79,6 +81,7 @@ public class TruckDriverServiceImpl implements TruckDriverService {
         }
 
         try {
+            System.out.println("Truck driver with ID " + id + " has been found.");
             return truckDriverRepository.findById(id);
         } catch (Exception e) {
             System.out.println("[findTruckDriverById] exception: " + e.getMessage());
@@ -114,6 +117,7 @@ public class TruckDriverServiceImpl implements TruckDriverService {
                 updatedTruckDriver.setSalary(truckDriver.getSalary());
 
                 truckDriverRepository.save(updatedTruckDriver);
+                System.out.println("Truck driver with ID " + id + " has been updated.");
                 return Optional.of(updatedTruckDriver);
             } else {
                 System.out.println("Truck driver with ID " + id + " not found.");

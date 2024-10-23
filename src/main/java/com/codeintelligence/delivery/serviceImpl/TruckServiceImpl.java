@@ -38,6 +38,7 @@ public class TruckServiceImpl implements TruckService {
         }
 
         try {
+            System.out.println("New truck created.");
             return truckRepository.save(truck);
         } catch (Exception e) {
             System.out.println("[saveTruck] exception: " + e.getMessage());
@@ -61,6 +62,7 @@ public class TruckServiceImpl implements TruckService {
                 System.out.println("No trucks found.");
                 return Collections.emptyList();
             }
+            System.out.println("All trucks has been found.");
             return trucks;
         } catch (Exception e) {
             System.out.println("[findAllTrucks] exception: " + e.getMessage());
@@ -86,6 +88,7 @@ public class TruckServiceImpl implements TruckService {
             if (truck.isEmpty()) {
                 System.out.println("Truck with ID " + id + " not found.");
             }
+            System.out.println("Truck with ID " + id + " has been found.");
             return truck;
         } catch (Exception e) {
             System.out.println("[findTruckById] exception: " + e.getMessage());
@@ -120,6 +123,7 @@ public class TruckServiceImpl implements TruckService {
                 updatedTruck.setKilometers(truck.getKilometers());
 
                 truckRepository.save(updatedTruck);
+                System.out.println("Truck with ID " + id + " has been updated.");
                 return Optional.of(updatedTruck);
             } else {
                 System.out.println("Truck with ID " + id + " not found.");
