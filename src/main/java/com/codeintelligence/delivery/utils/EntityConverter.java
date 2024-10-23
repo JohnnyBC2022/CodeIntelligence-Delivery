@@ -4,6 +4,8 @@ import com.codeintelligence.delivery.model.city.CityDTO;
 import com.codeintelligence.delivery.model.city.CityEntity;
 import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressDTO;
 import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressEntity;
+import com.codeintelligence.delivery.model.pack.PackDTO;
+import com.codeintelligence.delivery.model.pack.PackEntity;
 import com.codeintelligence.delivery.model.truck.TruckDTO;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
@@ -212,5 +214,42 @@ public class EntityConverter {
             deliveryAddressEntity.setCity(cityEntity);
         }
         return deliveryAddressEntity;
+    }
+
+    /**
+     * Converts a PackEntity to a PackDTO.
+     *
+     * @param packEntity the PackEntity to convert
+     * @return the corresponding PackDTO, or null if the input is null
+     */
+    public static PackDTO convertToPackDTO(PackEntity packEntity) {
+        if (packEntity == null) {
+            return null;
+        }
+
+        PackDTO packDTO = new PackDTO();
+        packDTO.setId(packEntity.getId());
+        packDTO.setDescription(packEntity.getDescription());
+        packDTO.setDestinationAddress(packEntity.getDestinationAddress());
+        return packDTO;
+    }
+
+    /**
+     * Converts a PackDTO to a PackEntity.
+     *
+     * @param packDTO the PackDTO to convert
+     * @return the corresponding PackEntity, or null if the input is null
+     */
+    public static PackEntity convertToPackEntity(PackDTO packDTO) {
+        if (packDTO == null) {
+            return null;
+        }
+
+        PackEntity packEntity = new PackEntity();
+        packEntity.setId(packDTO.getId());
+        packEntity.setDescription(packDTO.getDescription());
+        packEntity.setDestinationAddress(packDTO.getDestinationAddress());
+
+        return packEntity;
     }
 }
