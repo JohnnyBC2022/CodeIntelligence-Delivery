@@ -2,6 +2,8 @@ package com.codeintelligence.delivery.utils;
 
 import com.codeintelligence.delivery.model.city.CityDTO;
 import com.codeintelligence.delivery.model.city.CityEntity;
+import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressDTO;
+import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressEntity;
 import com.codeintelligence.delivery.model.truck.TruckDTO;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
@@ -161,5 +163,41 @@ public class EntityConverter {
         cityEntity.setId(cityDTO.getId());
         cityEntity.setName(cityDTO.getName());
         return cityEntity;
+    }
+
+    /**
+     * Converts a delivery address entity to its corresponding DTO.
+     *
+     * @param deliveryAddressEntity the delivery address entity
+     * @return the delivery address DTO, or null if the entity is null
+     */
+    public static DeliveryAddressDTO convertToDeliveryAddressDTO(DeliveryAddressEntity deliveryAddressEntity) {
+        if (deliveryAddressEntity == null) {
+            return null;
+        }
+
+        DeliveryAddressDTO dto = new DeliveryAddressDTO();
+        dto.setId(deliveryAddressEntity.getId());
+        dto.setStreet(deliveryAddressEntity.getStreet());
+        dto.setPostalCode(deliveryAddressEntity.getPostalCode());
+        return dto;
+    }
+
+    /**
+     * Converts a delivery address DTO to its corresponding entity.
+     *
+     * @param deliveryAddressDTO the delivery address DTO
+     * @return the delivery address entity, or null if the DTO is null
+     */
+    public static DeliveryAddressEntity convertToDeliveryAddressEntity(DeliveryAddressDTO deliveryAddressDTO) {
+        if (deliveryAddressDTO == null) {
+            return null;
+        }
+
+        DeliveryAddressEntity deliveryAddressEntity = new DeliveryAddressEntity();
+        deliveryAddressEntity.setId(deliveryAddressDTO.getId());
+        deliveryAddressEntity.setStreet(deliveryAddressDTO.getStreet());
+        deliveryAddressEntity.setPostalCode(deliveryAddressDTO.getPostalCode());
+        return deliveryAddressEntity;
     }
 }
