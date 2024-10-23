@@ -1,6 +1,9 @@
 package com.codeintelligence.delivery.model.city;
 
+import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressEntity;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 /**
  * Entity that represents a city.
@@ -17,6 +20,9 @@ public class CityEntity {
 
     @Column(name = "city", nullable = false)
     private String name;
+
+    @OneToMany(targetEntity = DeliveryAddressEntity.class, fetch = FetchType.LAZY, mappedBy = "city")
+    private List<DeliveryAddressEntity> deliveryAddresses;
 
     // Getters and Setters
 
@@ -56,6 +62,26 @@ public class CityEntity {
         this.name = name;
     }
 
+    /**
+     * Gets the list of delivery addresses associated with the city.
+     *
+     * @return the list of delivery addresses
+     */
+    public List<DeliveryAddressEntity> getDeliveryAddresses() {
+        return deliveryAddresses;
+    }
+
+    /**
+     * Sets the list of delivery addresses associated with the city.
+     *
+     * @param deliveryAddresses the list of delivery addresses to set
+     */
+    public void setDeliveryAddresses(List<DeliveryAddressEntity> deliveryAddresses) {
+        this.deliveryAddresses = deliveryAddresses;
+    }
+
+
+
     // Constructors
 
     /**
@@ -69,9 +95,11 @@ public class CityEntity {
      *
      * @param id   the unique identifier of the city
      * @param name the name of the city
+     * @param deliveryAddresses the list of delivery addresses associated with the city; can be null if not initialized
      */
-    public CityEntity(Long id, String name) {
+    public CityEntity(Long id, String name, List<DeliveryAddressEntity> deliveryAddresses) {
         this.id = id;
         this.name = name;
+        this.deliveryAddresses = deliveryAddresses;
     }
 }

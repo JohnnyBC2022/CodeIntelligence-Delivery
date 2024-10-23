@@ -1,5 +1,8 @@
 package com.codeintelligence.delivery.model.deliveryaddress;
 
+import com.codeintelligence.delivery.model.city.CityDTO;
+import com.codeintelligence.delivery.model.city.CityEntity;
+
 /**
  * Data Transfer Object for delivery address.
  * This class is used to transfer delivery address data between layers.
@@ -9,6 +12,8 @@ public class DeliveryAddressDTO {
     private Long id;
     private String street;
     private String postalCode;
+    private CityDTO city;
+
 
     // Getters and Setters
 
@@ -66,6 +71,24 @@ public class DeliveryAddressDTO {
         this.postalCode = postalCode;
     }
 
+    /**
+     * Gets the city associated with the delivery address.
+     *
+     * @return the city entity of the delivery address
+     */
+    public CityDTO getCity() {
+        return city;
+    }
+
+    /**
+     * Sets the city associated with the delivery address.
+     *
+     * @param city the city entity to set
+     */
+    public void setCity(CityDTO city) {
+        this.city = city;
+    }
+
     // Constructors
 
     /**
@@ -80,10 +103,12 @@ public class DeliveryAddressDTO {
      * @param id         the unique identifier of the delivery address
      * @param street     the street of the delivery address
      * @param postalCode the postal code of the delivery address
+     * @param city       the city associated with the delivery address; must not be null
      */
-    public DeliveryAddressDTO(Long id, String street, String postalCode) {
+    public DeliveryAddressDTO(Long id, String street, String postalCode, CityDTO city) {
         this.id = id;
         this.street = street;
         this.postalCode = postalCode;
+        this.city = city;
     }
 }

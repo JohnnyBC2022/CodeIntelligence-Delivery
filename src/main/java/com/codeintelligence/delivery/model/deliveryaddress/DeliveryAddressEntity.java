@@ -1,5 +1,7 @@
 package com.codeintelligence.delivery.model.deliveryaddress;
 
+import com.codeintelligence.delivery.model.city.CityEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 /**
@@ -20,6 +22,10 @@ public class DeliveryAddressEntity {
 
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
+
+    @ManyToOne(targetEntity = CityEntity.class)
+    @JsonIgnoreProperties({"deliveryAddresses"})
+    private CityEntity city;
 
 
     // Getters and Setters
@@ -78,6 +84,24 @@ public class DeliveryAddressEntity {
         this.postalCode = postalCode;
     }
 
+    /**
+     * Gets the city associated with the delivery address.
+     *
+     * @return the city entity of the delivery address
+     */
+    public CityEntity getCity() {
+        return city;
+    }
+
+    /**
+     * Sets the city associated with the delivery address.
+     *
+     * @param city the city entity to set
+     */
+    public void setCity(CityEntity city) {
+        this.city = city;
+    }
+
     // Constructors
 
     /**
@@ -92,11 +116,13 @@ public class DeliveryAddressEntity {
      * @param id         the unique identifier of the delivery address
      * @param street     the street of the delivery address
      * @param postalCode the postal code of the delivery address
+     * @param city       the city associated with the delivery address; must not be null
      */
-    public DeliveryAddressEntity(Long id, String street, String postalCode) {
+    public DeliveryAddressEntity(Long id, String street, String postalCode, CityEntity city) {
         this.id = id;
         this.street = street;
         this.postalCode = postalCode;
+        this.city = city;
     }
 
 

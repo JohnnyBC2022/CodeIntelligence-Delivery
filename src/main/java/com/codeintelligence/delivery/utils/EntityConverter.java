@@ -180,6 +180,13 @@ public class EntityConverter {
         dto.setId(deliveryAddressEntity.getId());
         dto.setStreet(deliveryAddressEntity.getStreet());
         dto.setPostalCode(deliveryAddressEntity.getPostalCode());
+
+        if (deliveryAddressEntity.getCity() != null) {
+            CityDTO cityDTO = new CityDTO();
+            cityDTO.setId(deliveryAddressEntity.getCity().getId());
+            cityDTO.setName(deliveryAddressEntity.getCity().getName()); // Asegúrate de incluir el nombre si es necesario
+            dto.setCity(cityDTO);
+        }
         return dto;
     }
 
@@ -198,6 +205,12 @@ public class EntityConverter {
         deliveryAddressEntity.setId(deliveryAddressDTO.getId());
         deliveryAddressEntity.setStreet(deliveryAddressDTO.getStreet());
         deliveryAddressEntity.setPostalCode(deliveryAddressDTO.getPostalCode());
+
+        if (deliveryAddressDTO.getCity() != null) {
+            CityEntity cityEntity = new CityEntity();
+            cityEntity.setId(deliveryAddressDTO.getCity().getId());
+            deliveryAddressEntity.setCity(cityEntity);
+        }
         return deliveryAddressEntity;
     }
 }
