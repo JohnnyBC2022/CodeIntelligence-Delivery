@@ -80,8 +80,6 @@ public class CityEntity {
         this.deliveryAddresses = deliveryAddresses;
     }
 
-
-
     // Constructors
 
     /**
