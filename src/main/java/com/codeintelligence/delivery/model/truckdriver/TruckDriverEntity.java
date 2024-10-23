@@ -1,5 +1,6 @@
 package com.codeintelligence.delivery.model.truckdriver;
 
+import com.codeintelligence.delivery.model.pack.PackEntity;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
 import jakarta.persistence.*;
@@ -42,6 +43,9 @@ public class TruckDriverEntity {
     @OneToMany(targetEntity = TruckDriverTruckEntity.class, fetch = FetchType.LAZY, mappedBy = "truckDriver")
     //@Column(name = "trucks", nullable = false)
     private List<TruckDriverTruckEntity> truckDriverTrucks;
+
+    @OneToMany(targetEntity = PackEntity.class, fetch = FetchType.LAZY, mappedBy = "truckDriver")
+    private List<PackEntity> packages;
 
     // Getters y Setters
 
@@ -170,6 +174,25 @@ public class TruckDriverEntity {
     public void setTruckDriverTrucks(List<TruckDriverTruckEntity> truckDriverTrucks) {
         this.truckDriverTrucks = truckDriverTrucks;
     }
+
+    /**
+     * Gets the list of packages assigned to the truck driver.
+     *
+     * @return the list of packages.
+     */
+    public List<PackEntity> getPackages() {
+        return packages;
+    }
+
+    /**
+     * Sets the list of packages assigned to the truck driver.
+     *
+     * @param packages the list of packages to set.
+     */
+    public void setPackages(List<PackEntity> packages) {
+        this.packages = packages;
+    }
+
     // Constructors
 
 
@@ -184,15 +207,17 @@ public class TruckDriverEntity {
      * Constructor for truck driver with parameters.
      * Initializes a new instance of TruckDriver with the provided attributes and the assigned trucks.
      *
-     * @param id      the unique identifier of the truck driver.
-     * @param dni     the DNI of the truck driver.
-     * @param name    the name of the truck driver.
-     * @param phone   the phone number of the truck driver.
-     * @param address the address of the truck driver.
-     * @param salary  the salary of the truck driver.
-     * @param truckDriverTrucks  the list of trucks assigned to the truck driver.
+     * @param id                  the unique identifier of the truck driver.
+     * @param dni                 the DNI of the truck driver.
+     * @param name                the name of the truck driver.
+     * @param phone               the phone number of the truck driver.
+     * @param address             the address of the truck driver.
+     * @param salary              the salary of the truck driver.
+     * @param truckDriverTrucks   the list of trucks assigned to the truck driver.
+     * @param packages            the list of packages assigned to the truck driver.
      */
-    public TruckDriverEntity(Long id, String dni, String name, String phone, String address, Double salary, List<TruckDriverTruckEntity> truckDriverTrucks) {
+    public TruckDriverEntity(Long id, String dni, String name, String phone, String address, Double salary,
+                             List<TruckDriverTruckEntity> truckDriverTrucks, List<PackEntity> packages) {
         this.id = id;
         this.dni = dni;
         this.name = name;
@@ -200,5 +225,6 @@ public class TruckDriverEntity {
         this.address = address;
         this.salary = salary;
         this.truckDriverTrucks = truckDriverTrucks;
+        this.packages = packages;
     }
 }

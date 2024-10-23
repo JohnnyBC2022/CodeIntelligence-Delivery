@@ -1,5 +1,6 @@
 package com.codeintelligence.delivery.model.pack;
 
+import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import jakarta.persistence.*;
 
 /**
@@ -20,6 +21,10 @@ public class PackEntity {
 
     @Column(name = "destination_address", nullable = false)
     private String destinationAddress;
+
+    @ManyToOne(targetEntity = TruckDriverEntity.class)
+    @JoinColumn(name = "truck_driver_id")
+    private TruckDriverEntity truckDriver;
 
     // Getters and Setters
 
@@ -77,6 +82,24 @@ public class PackEntity {
         this.destinationAddress = destinationAddress;
     }
 
+    /**
+     * Gets the truck driver associated with the pack.
+     *
+     * @return the truck driver entity
+     */
+    public TruckDriverEntity getTruckDriver() {
+        return truckDriver;
+    }
+
+    /**
+     * Sets the truck driver associated with the pack.
+     *
+     * @param truckDriver the truck driver entity to set
+     */
+    public void setTruckDriver(TruckDriverEntity truckDriver) {
+        this.truckDriver = truckDriver;
+    }
+
     // Constructors
 
     /**
@@ -86,13 +109,15 @@ public class PackEntity {
     }
 
     /**
-     * Constructs a new PackEntity with the specified description and destination address.
+     * Constructs a new PackEntity with the specified description, destination address, and truck driver.
      *
-     * @param description         the description of the pack
-     * @param destinationAddress  the destination address of the pack
+     * @param description        the description of the pack
+     * @param destinationAddress the destination address of the pack
+     * @param truckDriver        the truck driver associated with the pack
      */
-    public PackEntity(String description, String destinationAddress) {
+    public PackEntity(String description, String destinationAddress, TruckDriverEntity truckDriver) {
         this.description = description;
         this.destinationAddress = destinationAddress;
+        this.truckDriver = truckDriver;
     }
 }

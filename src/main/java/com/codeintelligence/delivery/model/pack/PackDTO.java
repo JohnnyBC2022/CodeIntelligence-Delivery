@@ -1,5 +1,8 @@
 package com.codeintelligence.delivery.model.pack;
 
+import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
+
+
 /**
  * Data Transfer Object (DTO) that represents a pack.
  * This class is used to transfer data related to the PackEntity.
@@ -9,8 +12,9 @@ public class PackDTO {
     private Long id;
     private String description;
     private String destinationAddress;
+    private TruckDriverDTO truckDriver;
 
-    // Getters and Setters
+    // Getters y Setters
 
     /**
      * Gets the unique identifier of the pack.
@@ -66,6 +70,24 @@ public class PackDTO {
         this.destinationAddress = destinationAddress;
     }
 
+    /**
+     * Gets the truck driver associated with the pack.
+     *
+     * @return the truck driver entity
+     */
+    public TruckDriverDTO getTruckDriver() {
+        return truckDriver;
+    }
+
+    /**
+     * Sets the truck driver associated with the pack.
+     *
+     * @param truckDriver the truck driver entity to set
+     */
+    public void setTruckDriver(TruckDriverDTO truckDriver) {
+        this.truckDriver = truckDriver;
+    }
+
     // Constructors
 
     /**
@@ -75,27 +97,19 @@ public class PackDTO {
     }
 
     /**
-     * Constructs a new PackDTO with the specified id, description, and destination address.
+     * Constructs a new PackDTO with the specified id, description, destination address, and truck driver.
      *
      * @param id                 the unique identifier of the pack
      * @param description        the description of the pack
      * @param destinationAddress the destination address of the pack
+     * @param truckDriver        the truck driver associated with the pack
      */
-    public PackDTO(Long id, String description, String destinationAddress) {
+    public PackDTO(Long id, String description, String destinationAddress, TruckDriverDTO truckDriver) {
         this.id = id;
         this.description = description;
         this.destinationAddress = destinationAddress;
+        this.truckDriver = truckDriver;
     }
 
-    /**
-     * Constructs a new PackDTO without id, only with description and destination address.
-     *
-     * @param description        the description of the pack
-     * @param destinationAddress the destination address of the pack
-     */
-    public PackDTO(String description, String destinationAddress) {
-        this.description = description;
-        this.destinationAddress = destinationAddress;
-    }
+
 }
-
