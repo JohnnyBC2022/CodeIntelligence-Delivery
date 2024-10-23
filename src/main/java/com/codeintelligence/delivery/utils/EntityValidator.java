@@ -2,6 +2,7 @@ package com.codeintelligence.delivery.utils;
 
 import com.codeintelligence.delivery.model.city.CityEntity;
 import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressEntity;
+import com.codeintelligence.delivery.model.pack.PackEntity;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
@@ -70,5 +71,16 @@ public class EntityValidator {
     public static boolean isValidDeliveryAddress(@NonNull DeliveryAddressEntity deliveryAddress) {
         return StringUtils.hasText(deliveryAddress.getStreet()) &&
                 StringUtils.hasText(deliveryAddress.getPostalCode());
+    }
+
+    /**
+     * Validates the PackEntity.
+     *
+     * @param pack The PackEntity to validate, must not be null.
+     * @return true if valid; false otherwise.
+     */
+    public static boolean isValidPack(@NonNull PackEntity pack) {
+        return StringUtils.hasText(pack.getDescription()) &&
+                StringUtils.hasText(pack.getDestinationAddress());
     }
 }
