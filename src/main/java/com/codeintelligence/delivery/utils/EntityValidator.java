@@ -1,9 +1,11 @@
 package com.codeintelligence.delivery.utils;
 
 import com.codeintelligence.delivery.model.city.CityEntity;
+import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressEntity;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
 /**
@@ -13,10 +15,10 @@ public class EntityValidator {
     /**
      * Validates the TruckDriverEntity.
      *
-     * @param truckDriver The TruckDriverEntity to validate.
+     * @param truckDriver The TruckDriverEntity to validate, must not be null.
      * @return true if valid; false otherwise.
      */
-    public static boolean isValidTruckDriver(TruckDriverEntity truckDriver) {
+    public static boolean isValidTruckDriver(@NonNull TruckDriverEntity truckDriver) {
         return StringUtils.hasText(truckDriver.getDni()) &&
                 StringUtils.hasText(truckDriver.getName()) &&
                 StringUtils.hasText(truckDriver.getPhone()) &&
@@ -28,10 +30,10 @@ public class EntityValidator {
     /**
      * Validates the truck data.
      *
-     * @param truck the TruckEntity object to validate
+     * @param truck the TruckEntity object to validate, must not be null.
      * @return true if valid, false otherwise
      */
-    public static boolean isValidTruck(TruckEntity truck) {
+    public static boolean isValidTruck(@NonNull TruckEntity truck) {
         return StringUtils.hasText(truck.getLicensePlate()) &&
                 StringUtils.hasText(truck.getModel()) &&
                 truck.getKilometers() != null;
@@ -40,10 +42,10 @@ public class EntityValidator {
     /**
      * Validates the TruckDriverTruckEntity.
      *
-     * @param truckDriverTruck The TruckDriverTruckEntity to validate.
+     * @param truckDriverTruck The TruckDriverTruckEntity to validate, must not be null.
      * @return true if valid; false otherwise.
      */
-    public static boolean isValidTruckDriverTruck(TruckDriverTruckEntity truckDriverTruck) {
+    public static boolean isValidTruckDriverTruck(@NonNull TruckDriverTruckEntity truckDriverTruck) {
         return truckDriverTruck.getTruck() != null &&
                 truckDriverTruck.getTruckDriver() != null &&
                 truckDriverTruck.getDate() != null;
@@ -55,7 +57,18 @@ public class EntityValidator {
      * @param city The CityEntity to validate.
      * @return true if valid; false otherwise.
      */
-    public static boolean isValidCity(CityEntity city) {
+    public static boolean isValidCity(@NonNull CityEntity city) {
         return StringUtils.hasText(city.getName());
+    }
+
+    /**
+     * Validates the DeliveryAddressEntity.
+     *
+     * @param deliveryAddress The DeliveryAddressEntity to validate, must not be null.
+     * @return true if valid; false otherwise.
+     */
+    public static boolean isValidDeliveryAddress(@NonNull DeliveryAddressEntity deliveryAddress) {
+        return StringUtils.hasText(deliveryAddress.getStreet()) &&
+                StringUtils.hasText(deliveryAddress.getPostalCode());
     }
 }
