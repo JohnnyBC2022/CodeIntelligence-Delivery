@@ -1,5 +1,7 @@
 package com.codeintelligence.delivery.utils;
 
+import com.codeintelligence.delivery.model.city.CityDTO;
+import com.codeintelligence.delivery.model.city.CityEntity;
 import com.codeintelligence.delivery.model.truck.TruckDTO;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
@@ -125,5 +127,39 @@ public class EntityConverter {
         truckDriverTruckEntity.setTruck(convertToTruckEntity(truckDriverTruckDTO.getTruck()));
         truckDriverTruckEntity.setDate(truckDriverTruckDTO.getDate());
         return truckDriverTruckEntity;
+    }
+
+    /**
+     * Converts a city entity to its corresponding DTO.
+     *
+     * @param cityEntity the city entity
+     * @return the city DTO, or null if the entity is null
+     */
+    public static CityDTO convertToCityDTO(CityEntity cityEntity) {
+        if (cityEntity == null) {
+            return null;
+        }
+
+        CityDTO dto = new CityDTO();
+        dto.setId(cityEntity.getId());
+        dto.setName(cityEntity.getName());
+        return dto;
+    }
+
+    /**
+     * Converts a city DTO to its corresponding entity.
+     *
+     * @param cityDTO the city DTO
+     * @return the city entity, or null if the DTO is null
+     */
+    public static CityEntity convertToCityEntity(CityDTO cityDTO) {
+        if (cityDTO == null) {
+            return null;
+        }
+
+        CityEntity cityEntity = new CityEntity();
+        cityEntity.setId(cityDTO.getId());
+        cityEntity.setName(cityDTO.getName());
+        return cityEntity;
     }
 }
