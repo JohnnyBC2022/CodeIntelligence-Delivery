@@ -4,7 +4,6 @@ import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckDTO;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
 import com.codeintelligence.delivery.service.TruckDriverTruckService;
 import com.codeintelligence.delivery.utils.EntityConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,6 @@ public class TruckDriverTruckController {
 
     private final TruckDriverTruckService truckDriverTruckService;
 
-    @Autowired
     public TruckDriverTruckController(TruckDriverTruckService truckDriverTruckService) {
         this.truckDriverTruckService = truckDriverTruckService;
     }
