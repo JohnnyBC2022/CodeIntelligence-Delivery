@@ -1,5 +1,6 @@
 package com.codeintelligence.delivery.utils;
 
+import com.codeintelligence.delivery.model.city.CityEntity;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
@@ -46,5 +47,15 @@ public class EntityValidator {
         return truckDriverTruck.getTruck() != null &&
                 truckDriverTruck.getTruckDriver() != null &&
                 truckDriverTruck.getDate() != null;
+    }
+
+    /**
+     * Validates the CityEntity.
+     *
+     * @param city The CityEntity to validate.
+     * @return true if valid; false otherwise.
+     */
+    public static boolean isValidCity(CityEntity city) {
+        return StringUtils.hasText(city.getName());
     }
 }
