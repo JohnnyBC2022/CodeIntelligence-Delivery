@@ -5,7 +5,6 @@ import com.codeintelligence.delivery.repository.TruckRepository;
 import com.codeintelligence.delivery.service.TruckService;
 import com.codeintelligence.delivery.utils.EntityValidator;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;

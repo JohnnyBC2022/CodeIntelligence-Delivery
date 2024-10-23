@@ -27,7 +27,7 @@ public class TruckDriverTruckEntity {
      * Many-to-one relationship with TruckDriverEntity.
      * This represents the truck driver who drove the truck.
      */
-    @ManyToOne
+    @ManyToOne(targetEntity = TruckDriverEntity.class)
     @JoinColumn(name = "id_truck_driver", nullable = false)
     private TruckDriverEntity truckDriver;
 
@@ -35,7 +35,7 @@ public class TruckDriverTruckEntity {
      * Many-to-one relationship with TruckEntity.
      * This represents the truck that was driven by the truck driver.
      */
-    @ManyToOne
+    @ManyToOne(targetEntity = TruckEntity.class)
     @JoinColumn(name = "id_truck", nullable = false)
     private TruckEntity truck;
 

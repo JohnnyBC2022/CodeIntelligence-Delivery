@@ -122,6 +122,8 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
 
             if (existingTruckDriverTruck.isPresent()) {
                 TruckDriverTruckEntity updatedTruckDriverTruck = existingTruckDriverTruck.get();
+                updatedTruckDriverTruck.setTruckDriver(truckDriverTruck.getTruckDriver());
+                updatedTruckDriverTruck.setTruck(truckDriverTruck.getTruck());
                 updatedTruckDriverTruck.setDate(truckDriverTruck.getDate());
 
 
@@ -150,6 +152,8 @@ public class TruckDriverTruckServiceImpl implements TruckDriverTruckService {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Invalid truck - driver truck ID.");
         }
+
+
 
         try {
             Optional<TruckDriverTruckEntity> truckDriverTruckOptional = truckDriverTruckRepository.findById(id);

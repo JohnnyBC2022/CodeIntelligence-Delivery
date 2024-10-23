@@ -1,6 +1,7 @@
 package com.codeintelligence.delivery.model.truckdriver;
 
 import com.codeintelligence.delivery.model.truck.TruckEntity;
+import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -38,9 +39,9 @@ public class TruckDriverEntity {
      *  This annotation indicates that multiple instances of the current entity
      *  (TruckDriverTruck) can be associated with a single instance of TruckEntity.
      */
-    @OneToMany(mappedBy = "truckDriver")
-    @Column(name = "trucks", nullable = false)
-    private List<TruckEntity> trucks;
+    @OneToMany(targetEntity = TruckDriverTruckEntity.class, fetch = FetchType.LAZY, mappedBy = "truckDriver")
+    //@Column(name = "trucks", nullable = false)
+    private List<TruckDriverTruckEntity> truckDriverTrucks;
 
     // Getters y Setters
 
@@ -157,19 +158,18 @@ public class TruckDriverEntity {
      *
      * @return the list of trucks.
      */
-    public List<TruckEntity> getTrucks() {
-        return trucks;
+    public List<TruckDriverTruckEntity> getTruckDriverTrucks() {
+        return truckDriverTrucks;
     }
 
     /**
      * Sets the list of trucks assigned to the truck driver.
      *
-     * @param trucks the list of trucks to set.
+     * @param truckDriverTrucks the list of trucks to set.
      */
-    public void setTrucks(List<TruckEntity> trucks) {
-        this.trucks = trucks;
+    public void setTruckDriverTrucks(List<TruckDriverTruckEntity> truckDriverTrucks) {
+        this.truckDriverTrucks = truckDriverTrucks;
     }
-
     // Constructors
 
 
@@ -190,15 +190,15 @@ public class TruckDriverEntity {
      * @param phone   the phone number of the truck driver.
      * @param address the address of the truck driver.
      * @param salary  the salary of the truck driver.
-     * @param trucks  the list of trucks assigned to the truck driver.
+     * @param truckDriverTrucks  the list of trucks assigned to the truck driver.
      */
-    public TruckDriverEntity(Long id, String dni, String name, String phone, String address, Double salary, List<TruckEntity> trucks) {
+    public TruckDriverEntity(Long id, String dni, String name, String phone, String address, Double salary, List<TruckDriverTruckEntity> truckDriverTrucks) {
         this.id = id;
         this.dni = dni;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.salary = salary;
-        this.trucks = trucks;
+        this.truckDriverTrucks = truckDriverTrucks;
     }
 }

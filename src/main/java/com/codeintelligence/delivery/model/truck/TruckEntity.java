@@ -1,7 +1,10 @@
 package com.codeintelligence.delivery.model.truck;
 
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
+import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 /**
  * Entity that represents a truck in the transportation company.
@@ -30,9 +33,8 @@ public class TruckEntity {
      * This annotation indicates that multiple instances of the current entity
      *  * (TruckDriverTruck) can be associated with a single instance of TruckDriverEntity.
      */
-    @ManyToOne
-    @JoinColumn(name = "id_truck_driver", nullable = false)
-    private TruckDriverEntity truckDriver;
+    @OneToMany(targetEntity = TruckDriverTruckEntity.class, fetch = FetchType.LAZY, mappedBy = "truck")
+    private List<TruckDriverTruckEntity> truckDriverTrucks;
 
     // Getters y Setters
 
@@ -113,19 +115,18 @@ public class TruckEntity {
      *
      * @return the truck driver.
      */
-    public TruckDriverEntity getTruckDriver() {
-        return truckDriver;
+    public List<TruckDriverTruckEntity> getTruckDriverTrucks() {
+        return truckDriverTrucks;
     }
 
     /**
      * Sets the truck driver assigned to the truck.
      *
-     * @param truckDriver the truck driver to set.
+     * @param truckDriverTrucks the truck driver to set.
      */
-    public void setTruckDriver(TruckDriverEntity truckDriver) {
-        this.truckDriver = truckDriver;
+    public void setTruckDriverTrucks(List<TruckDriverTruckEntity> truckDriverTrucks) {
+        this.truckDriverTrucks = truckDriverTrucks;
     }
-
     // Constructores
 
     /**
@@ -142,13 +143,13 @@ public class TruckEntity {
      * @param licensePlate the license plate of the truck.
      * @param model        the model of the truck.
      * @param kilometers   the kilometers traveled by the truck.
-     * @param truckDriver  the truck driver assigned to the truck.
+     * @param truckDriverTrucks  the truck driver assigned to the truck.
      */
-    public TruckEntity(Long id, String licensePlate, String model, Double kilometers, TruckDriverEntity truckDriver) {
+    public TruckEntity(Long id, String licensePlate, String model, Double kilometers, List<TruckDriverTruckEntity> truckDriverTrucks) {
         this.id = id;
         this.licensePlate = licensePlate;
         this.model = model;
         this.kilometers = kilometers;
-        this.truckDriver = truckDriver;
+        this.truckDriverTrucks = truckDriverTrucks;
     }
 }

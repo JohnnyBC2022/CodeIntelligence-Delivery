@@ -62,6 +62,12 @@ public class TruckDriverTruckController {
         }
     }
 
+    /**
+     * Retrieves a specific truck-driver-truck assignment by its ID.
+     *
+     * @param id the ID of the truck-driver-truck assignment
+     * @return ResponseEntity with the truck-driver-truck DTO if found, or HTTP status 404 (NOT FOUND)
+     */
     @GetMapping("/get/{id}")
     public ResponseEntity<TruckDriverTruckDTO> getTruckDriverTruckById(@PathVariable Long id) {
         try {
@@ -73,6 +79,31 @@ public class TruckDriverTruckController {
         }
     }
 
+    /**
+     * Updates an existing truck-driver-truck assignment by its ID.
+     *
+     * @param id the ID of the truck-driver-truck assignment to update
+     * @param truckDriverTruckDTO the updated DTO of the truck-driver-truck relationship
+     * @return ResponseEntity with the updated truck-driver-truck DTO if successful, or HTTP status 404 (NOT FOUND)
+     */
+    @PutMapping("/update/{id}")
+    public ResponseEntity<TruckDriverTruckDTO> updateTruckDriverTruckById(@PathVariable Long id, @RequestBody TruckDriverTruckDTO truckDriverTruckDTO){
+        try {
+            TruckDriverTruckEntity truckDriverTruck = EntityConverter.convertToTruckDriverTruckEntity(truckDriverTruckDTO);
+            Optional<TruckDriverTruckEntity> updatedTruckDriverTruck = truckDriverTruckService.updateTruckDriverTruckById(id, truckDriverTruck);
+            return updatedTruckDriverTruck.map(driverTruck -> new ResponseEntity<>(EntityConverter.convertToTruckDriverTruckDTO(driverTruck), HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Deletes a truck-driver-truck assignment by its ID.
+     *
+     * @param id the ID of the truck-driver-truck assignment to delete
+     * @return ResponseEntity with HTTP status 204 (NO CONTENT) if successful, or HTTP status 404 (NOT FOUND)
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteTruckDriverTruckById(@PathVariable Long id) {
         try {
