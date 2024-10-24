@@ -1,6 +1,7 @@
 package com.codeintelligence.delivery.repository;
 
 import com.codeintelligence.delivery.model.token.TokenEntity;
+import com.codeintelligence.delivery.model.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface TokenRepository extends JpaRepository<TokenEntity, Long> {
 
-    List<TokenEntity> findAllTokensByUser(Long id);
+    List<TokenEntity> findAllTokensByUser(UserEntity user);
 
     Optional<TokenEntity> findByToken(String token);
 }

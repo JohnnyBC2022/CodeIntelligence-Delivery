@@ -4,12 +4,14 @@ import com.codeintelligence.delivery.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 
 /**
  * Implementation of the UserDetailsService interface for loading user-specific data.
  * This service is used by Spring Security to retrieve user details for authentication.
  */
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 

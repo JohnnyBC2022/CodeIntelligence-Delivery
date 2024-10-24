@@ -9,11 +9,13 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.function.Function;
 
+@Service
 public class JWTServiceImpl implements JWTService {
 
     private final String SECRET_KEY = "bWVqdW50YXNtaXBhbGFicmFzZWNyZXRhdWx0cmFsYXJnYWNvbmxvcXVlcXVlaXJhcw"; // Secret key for signing JWTs

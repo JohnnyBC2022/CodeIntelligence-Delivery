@@ -19,6 +19,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * SecurityConfig defines the security configurations for the application, such as authentication mechanisms,
+ * session policies, and filter chains. It uses JWT tokens to authenticate and authorize requests.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -29,12 +33,26 @@ public class SecurityConfig {
 
     private final CustomLogoutHandler customLogoutHandler;
 
+    /**
+     * Constructor for SecurityConfig.
+     *
+     * @param userDetailsServiceImpl handles loading user details from the database.
+     * @param jwtAuthenticationFilter JWT filter that authenticates requests based on JWT tokens.
+     * @param customLogoutHandler handles custom logout behavior.
+     */
     public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, JWTAuthenticationFilter jwtAuthenticationFilter, CustomLogoutHandler customLogoutHandler) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customLogoutHandler = customLogoutHandler;
     }
 
+    /**
+     * Configures the security filter chain for HTTP requests.
+     *
+     * @param http HttpSecurity object used to configure security settings.
+     * @return SecurityFilterChain with the defined security configurations.
+     * @throws Exception in case of configuration errors.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(@NonNull HttpSecurity http) throws Exception{
         return http.csrf(AbstractHttpConfigurer::disable)
@@ -61,11 +79,23 @@ public class SecurityConfig {
                 .build();
     }
 
+    /**
+     * Configures the password encoder used for securing user passwords.
+     *
+     * @return BCryptPasswordEncoder as the password encoding implementation.
+     */
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Configures the AuthenticationManager, which is used to authenticate users.
+     *
+     * @param configuration the AuthenticationConfiguration object that provides the manager.
+     * @return AuthenticationManager used to handle authentication requests.
+     * @throws Exception in case of configuration errors.
+     */
     @Bean
     public AuthenticationManager authenticationManager(@NonNull AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
