@@ -1,48 +1,22 @@
 package com.codeintelligence.delivery.model.user;
 
 import com.codeintelligence.delivery.model.token.TokenEntity;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
- * Entity that represents a user in the system.
- * This class is mapped to the "user" table in the database.
+ * Data Transfer Object (DTO) that represents a user in the system.
+ * This class is used for transferring user data without exposing the entity structure.
  */
-@Entity
-@Table(name = "user")
-public class UserEntity implements UserDetails {
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "mail")
     private String mail;
-
-    @Column(name = "username")
     private String username;
-
-    @Column(name = "password")
-    private String password;
-
-    @Enumerated(value = EnumType.STRING)
+    //private String password;
     private Role role;
-
-    @JsonManagedReference
-    @OneToMany(targetEntity = TokenEntity.class,fetch = FetchType.LAZY,mappedBy = "user")
     private List<TokenEntity> tokens;
 
     // Getters and Setters
@@ -119,7 +93,11 @@ public class UserEntity implements UserDetails {
         this.mail = mail;
     }
 
-    @Override
+    /**
+     * Gets the username of the user.
+     *
+     * @return the username of the user
+     */
     public String getUsername() {
         return username;
     }
@@ -133,19 +111,25 @@ public class UserEntity implements UserDetails {
         this.username = username;
     }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+    /**
+     * Gets the password of the user.
+     * Note: Be cautious when exposing passwords through DTOs.
+     *
+     * @return the password of the user
+     */
+//    public String getPassword() {
+//        return password;
+//    }
 
     /**
      * Sets the password of the user.
+     * Note: Be cautious when exposing passwords through DTOs.
      *
      * @param password the password to set
      */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     /**
      * Gets the role of the user.
@@ -168,7 +152,7 @@ public class UserEntity implements UserDetails {
     /**
      * Gets the list of tokens associated with the user.
      *
-     * @return the list of TokenEntity associated with the user
+     * @return the list of TokenDTO associated with the user
      */
     public List<TokenEntity> getTokens() {
         return tokens;
@@ -177,7 +161,7 @@ public class UserEntity implements UserDetails {
     /**
      * Sets the list of tokens associated with the user.
      *
-     * @param tokens the list of TokenEntity to set
+     * @param tokens the list of TokenDTO to set
      */
     public void setTokens(List<TokenEntity> tokens) {
         this.tokens = tokens;
@@ -186,81 +170,31 @@ public class UserEntity implements UserDetails {
     // Constructors
 
     /**
-     * Default constructor for the UserEntity class.
+     * Default constructor for the UserDTO class.
      */
-    public UserEntity() {
+    public UserDTO() {
     }
 
     /**
-     * Constructs a new UserEntity with the specified parameters.
+     * Constructs a new UserDTO with the specified parameters.
      *
      * @param id        the unique identifier of the user
      * @param firstName the first name of the user
      * @param lastName  the last name of the user
      * @param mail      the email of the user
      * @param username  the username of the user
-     * @param password  the password of the user
+     *
      * @param role      the role of the user
      * @param tokens    the list of tokens associated with the user
      */
-    public UserEntity(Long id, String firstName, String lastName, String mail, String username, String password, Role role, List<TokenEntity> tokens) {
+    public UserDTO(Long id, String firstName, String lastName, String mail, String username, Role role, List<TokenEntity> tokens) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.username = username;
-        this.password = password;
+        //this.password = password;
         this.role = role;
         this.tokens = tokens;
-    }
-
-    /**
-     * Indicates whether the user's account has expired.
-     *
-     * @return true if the account is non-expired, false otherwise.
-     */
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    /**
-     * Indicates whether the user's account is locked.
-     *
-     * @return true if the account is non-locked, false otherwise.
-     */
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    /**
-     * Indicates whether the user's credentials (password) have expired.
-     *
-     * @return true if the credentials are non-expired, false otherwise.
-     */
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    /**
-     * Indicates whether the user's account is enabled.
-     *
-     * @return true if the account is enabled, false otherwise.
-     */
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    /**
-     * Returns the authorities granted to the user.
-     *
-     * @return a collection of granted authorities, including the user's role.
-     */
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 }

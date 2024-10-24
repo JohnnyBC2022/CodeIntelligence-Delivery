@@ -1,4 +1,4 @@
-package com.codeintelligence.delivery.model.Token;
+package com.codeintelligence.delivery.model.token;
 
 import com.codeintelligence.delivery.model.user.UserEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
