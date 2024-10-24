@@ -1,6 +1,5 @@
 package com.codeintelligence.delivery.model.truck;
 
-import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

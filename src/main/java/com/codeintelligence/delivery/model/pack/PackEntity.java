@@ -3,7 +3,6 @@ package com.codeintelligence.delivery.model.pack;
 import com.codeintelligence.delivery.model.city.CityEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 /**

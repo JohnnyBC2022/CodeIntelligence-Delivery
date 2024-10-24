@@ -1,7 +1,6 @@
 package com.codeintelligence.delivery.model.deliveryaddress;
 
 import com.codeintelligence.delivery.model.city.CityDTO;
-import com.codeintelligence.delivery.model.city.CityEntity;
 
 /**
  * Data Transfer Object for delivery address.
