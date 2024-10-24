@@ -1,6 +1,8 @@
 package com.codeintelligence.delivery.model.pack;
 
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 /**
@@ -23,7 +25,7 @@ public class PackEntity {
     private String destinationAddress;
 
     @ManyToOne(targetEntity = TruckDriverEntity.class)
-    @JoinColumn(name = "truck_driver_id")
+    @JsonBackReference("truck_driver - packs")
     private TruckDriverEntity truckDriver;
 
     // Getters and Setters

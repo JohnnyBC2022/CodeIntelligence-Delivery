@@ -3,6 +3,7 @@ package com.codeintelligence.delivery.model.truckdriver;
 import com.codeintelligence.delivery.model.pack.PackEntity;
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class TruckDriverEntity {
     private List<TruckDriverTruckEntity> truckDriverTrucks;
 
     @OneToMany(targetEntity = PackEntity.class, fetch = FetchType.LAZY, mappedBy = "truckDriver")
+    @JsonManagedReference("truck_driver - packs")
     private List<PackEntity> packages;
 
     // Getters y Setters
