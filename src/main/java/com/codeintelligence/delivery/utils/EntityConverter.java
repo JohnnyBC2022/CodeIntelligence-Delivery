@@ -13,6 +13,8 @@ import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckDTO;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
 
+import java.util.stream.Collectors;
+
 public class EntityConverter {
 
     /**
@@ -151,6 +153,12 @@ public class EntityConverter {
         CityDTO dto = new CityDTO();
         dto.setId(cityEntity.getId());
         dto.setName(cityEntity.getName());
+        dto.setDeliveryAddresses(cityEntity.getDeliveryAddresses().stream()
+                .map(EntityConverter::convertToDeliveryAddressDTO)
+                .collect(Collectors.toList()));
+        dto.setPacks(cityEntity.getPacks().stream()
+                .map(EntityConverter::convertToPackDTO)
+                .collect(Collectors.toList()));
         return dto;
     }
 
@@ -168,6 +176,12 @@ public class EntityConverter {
         CityEntity cityEntity = new CityEntity();
         cityEntity.setId(cityDTO.getId());
         cityEntity.setName(cityDTO.getName());
+        cityEntity.setDeliveryAddresses(cityDTO.getDeliveryAddresses().stream()
+                .map(EntityConverter::convertToDeliveryAddressEntity)
+                .collect(Collectors.toList()));
+        cityEntity.setPacks(cityDTO.getPacks().stream()
+                .map(EntityConverter::convertToPackEntity)
+                .collect(Collectors.toList()));
         return cityEntity;
     }
 
@@ -236,6 +250,7 @@ public class EntityConverter {
         packDTO.setDescription(packEntity.getDescription());
         packDTO.setDestinationAddress(packEntity.getDestinationAddress());
         packDTO.setTruckDriver(convertToTruckDriverDTO(packEntity.getTruckDriver()));
+        packDTO.setCity(convertToCityDTO(packEntity.getCity()));
         return packDTO;
     }
 
@@ -255,6 +270,7 @@ public class EntityConverter {
         packEntity.setDescription(packDTO.getDescription());
         packEntity.setDestinationAddress(packDTO.getDestinationAddress());
         packEntity.setTruckDriver(convertToTruckDriverEntity(packDTO.getTruckDriver()));
+        packEntity.setCity(convertToCityEntity(packDTO.getCity()));
         return packEntity;
     }
 }

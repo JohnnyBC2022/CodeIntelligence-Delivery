@@ -1,5 +1,6 @@
 package com.codeintelligence.delivery.model.pack;
 
+import com.codeintelligence.delivery.model.city.CityDTO;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverDTO;
 
 
@@ -13,6 +14,7 @@ public class PackDTO {
     private String description;
     private String destinationAddress;
     private TruckDriverDTO truckDriver;
+    private CityDTO city;
 
     // Getters y Setters
 
@@ -88,6 +90,24 @@ public class PackDTO {
         this.truckDriver = truckDriver;
     }
 
+    /**
+     * Gets the city associated with the pack.
+     *
+     * @return the city DTO
+     */
+    public CityDTO getCity() {
+        return city;
+    }
+
+    /**
+     * Sets the city associated with the pack.
+     *
+     * @param city the city DTO to set
+     */
+    public void setCity(CityDTO city) {
+        this.city = city;
+    }
+
     // Constructors
 
     /**
@@ -97,18 +117,20 @@ public class PackDTO {
     }
 
     /**
-     * Constructs a new PackDTO with the specified id, description, destination address, and truck driver.
+     * Constructs a new PackDTO with the specified id, description, destination address, truck driver, and city.
      *
      * @param id                 the unique identifier of the pack
      * @param description        the description of the pack
      * @param destinationAddress the destination address of the pack
      * @param truckDriver        the truck driver associated with the pack
+     * @param city               the city where the pack is delivered
      */
-    public PackDTO(Long id, String description, String destinationAddress, TruckDriverDTO truckDriver) {
+    public PackDTO(Long id, String description, String destinationAddress, TruckDriverDTO truckDriver, CityDTO city) {
         this.id = id;
         this.description = description;
         this.destinationAddress = destinationAddress;
         this.truckDriver = truckDriver;
+        this.city = city;
     }
 
 

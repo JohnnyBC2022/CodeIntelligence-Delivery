@@ -107,10 +107,20 @@ public class PackEntity {
         this.truckDriver = truckDriver;
     }
 
+    /**
+     * Gets the city associated with the pack.
+     *
+     * @return the city entity
+     */
     public CityEntity getCity() {
         return city;
     }
 
+    /**
+     * Sets the city associated with the pack.
+     *
+     * @param city the city entity to set
+     */
     public void setCity(CityEntity city) {
         this.city = city;
     }
@@ -123,6 +133,15 @@ public class PackEntity {
     public PackEntity() {
     }
 
+    /**
+     * Constructs a new PackEntity with the specified id, description, destination address, truck driver, and city.
+     *
+     * @param id                 the unique identifier of the pack
+     * @param description        the description of the pack
+     * @param destinationAddress the destination address of the pack
+     * @param truckDriver        the truck driver associated with the pack
+     * @param city               the city where the pack is delivered
+     */
     public PackEntity(Long id, String description, String destinationAddress, TruckDriverEntity truckDriver, CityEntity city) {
         this.id = id;
         this.description = description;

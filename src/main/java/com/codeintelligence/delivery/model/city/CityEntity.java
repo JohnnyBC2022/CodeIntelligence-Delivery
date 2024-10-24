@@ -86,10 +86,20 @@ public class CityEntity {
         this.deliveryAddresses = deliveryAddresses;
     }
 
+    /**
+     * Gets the list of packs associated with the city.
+     *
+     * @return the list of packs associated with the city
+     */
     public List<PackEntity> getPacks() {
         return packs;
     }
 
+    /**
+     * Sets the list of packs associated with the city.
+     *
+     * @param packs the list of packs to set
+     */
     public void setPacks(List<PackEntity> packs) {
         this.packs = packs;
     }
@@ -102,6 +112,14 @@ public class CityEntity {
     public CityEntity() {
     }
 
+    /**
+     * Constructs a new CityEntity with the specified id, name, delivery addresses, and packs.
+     *
+     * @param id                the unique identifier of the city
+     * @param name              the name of the city
+     * @param deliveryAddresses the list of delivery addresses associated with the city
+     * @param packs             the list of packs associated with the city
+     */
     public CityEntity(Long id, String name, List<DeliveryAddressEntity> deliveryAddresses, List<PackEntity> packs) {
         this.id = id;
         this.name = name;
