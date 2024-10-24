@@ -15,7 +15,7 @@ public class UserDTO {
     private String lastName;
     private String mail;
     private String username;
-    //private String password;
+    private String password;
     private Role role;
     private List<TokenEntity> tokens;
 
@@ -117,9 +117,9 @@ public class UserDTO {
      *
      * @return the password of the user
      */
-//    public String getPassword() {
-//        return password;
-//    }
+    public String getPassword() {
+        return password;
+    }
 
     /**
      * Sets the password of the user.
@@ -127,9 +127,9 @@ public class UserDTO {
      *
      * @param password the password to set
      */
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     /**
      * Gets the role of the user.
@@ -183,17 +183,17 @@ public class UserDTO {
      * @param lastName  the last name of the user
      * @param mail      the email of the user
      * @param username  the username of the user
-     *
+     * @Param password  the password of the user
      * @param role      the role of the user
      * @param tokens    the list of tokens associated with the user
      */
-    public UserDTO(Long id, String firstName, String lastName, String mail, String username, Role role, List<TokenEntity> tokens) {
+    public UserDTO(Long id, String firstName, String lastName, String mail, String username, String password, Role role, List<TokenEntity> tokens) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.username = username;
-        //this.password = password;
+        this.password = password;
         this.role = role;
         this.tokens = tokens;
     }
