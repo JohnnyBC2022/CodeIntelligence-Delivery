@@ -1,5 +1,6 @@
 package com.codeintelligence.delivery.model.pack;
 
+import com.codeintelligence.delivery.model.city.CityEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -27,6 +28,10 @@ public class PackEntity {
     @ManyToOne(targetEntity = TruckDriverEntity.class)
     @JsonBackReference("truck_driver - packs")
     private TruckDriverEntity truckDriver;
+
+    @ManyToOne(targetEntity = CityEntity.class)
+    @JsonBackReference("city - packs")
+    private CityEntity city;
 
     // Getters and Setters
 
@@ -102,6 +107,14 @@ public class PackEntity {
         this.truckDriver = truckDriver;
     }
 
+    public CityEntity getCity() {
+        return city;
+    }
+
+    public void setCity(CityEntity city) {
+        this.city = city;
+    }
+
     // Constructors
 
     /**
@@ -110,16 +123,11 @@ public class PackEntity {
     public PackEntity() {
     }
 
-    /**
-     * Constructs a new PackEntity with the specified description, destination address, and truck driver.
-     *
-     * @param description        the description of the pack
-     * @param destinationAddress the destination address of the pack
-     * @param truckDriver        the truck driver associated with the pack
-     */
-    public PackEntity(String description, String destinationAddress, TruckDriverEntity truckDriver) {
+    public PackEntity(Long id, String description, String destinationAddress, TruckDriverEntity truckDriver, CityEntity city) {
+        this.id = id;
         this.description = description;
         this.destinationAddress = destinationAddress;
         this.truckDriver = truckDriver;
+        this.city = city;
     }
 }

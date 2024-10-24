@@ -1,6 +1,8 @@
 package com.codeintelligence.delivery.model.city;
 
 import com.codeintelligence.delivery.model.deliveryaddress.DeliveryAddressEntity;
+import com.codeintelligence.delivery.model.pack.PackEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,6 +25,10 @@ public class CityEntity {
 
     @OneToMany(targetEntity = DeliveryAddressEntity.class, fetch = FetchType.LAZY, mappedBy = "city")
     private List<DeliveryAddressEntity> deliveryAddresses;
+
+    @OneToMany(targetEntity = PackEntity.class, fetch = FetchType.LAZY, mappedBy = "city")
+    @JsonManagedReference("city - packs")
+    private List<PackEntity> packs;
 
     // Getters and Setters
 
@@ -80,6 +86,14 @@ public class CityEntity {
         this.deliveryAddresses = deliveryAddresses;
     }
 
+    public List<PackEntity> getPacks() {
+        return packs;
+    }
+
+    public void setPacks(List<PackEntity> packs) {
+        this.packs = packs;
+    }
+
     // Constructors
 
     /**
@@ -88,16 +102,10 @@ public class CityEntity {
     public CityEntity() {
     }
 
-    /**
-     * Constructs a new CityEntity with the specified id and name.
-     *
-     * @param id   the unique identifier of the city
-     * @param name the name of the city
-     * @param deliveryAddresses the list of delivery addresses associated with the city; can be null if not initialized
-     */
-    public CityEntity(Long id, String name, List<DeliveryAddressEntity> deliveryAddresses) {
+    public CityEntity(Long id, String name, List<DeliveryAddressEntity> deliveryAddresses, List<PackEntity> packs) {
         this.id = id;
         this.name = name;
         this.deliveryAddresses = deliveryAddresses;
+        this.packs = packs;
     }
 }

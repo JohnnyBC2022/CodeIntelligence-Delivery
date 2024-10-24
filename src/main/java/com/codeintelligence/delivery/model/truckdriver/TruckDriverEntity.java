@@ -42,7 +42,7 @@ public class TruckDriverEntity {
      *  (TruckDriverTruck) can be associated with a single instance of TruckEntity.
      */
     @OneToMany(targetEntity = TruckDriverTruckEntity.class, fetch = FetchType.LAZY, mappedBy = "truckDriver")
-    //@Column(name = "trucks", nullable = false)
+    @JsonManagedReference("truck_driver - trucks")
     private List<TruckDriverTruckEntity> truckDriverTrucks;
 
     @OneToMany(targetEntity = PackEntity.class, fetch = FetchType.LAZY, mappedBy = "truckDriver")

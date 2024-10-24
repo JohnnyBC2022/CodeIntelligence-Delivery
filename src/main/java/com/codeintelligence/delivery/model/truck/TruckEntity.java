@@ -2,6 +2,7 @@ package com.codeintelligence.delivery.model.truck;
 
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
 import com.codeintelligence.delivery.model.truckdrivertruck.TruckDriverTruckEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class TruckEntity {
      *  * (TruckDriverTruck) can be associated with a single instance of TruckDriverEntity.
      */
     @OneToMany(targetEntity = TruckDriverTruckEntity.class, fetch = FetchType.LAZY, mappedBy = "truck")
+    @JsonManagedReference("truck - truckdrivertrucks")
     private List<TruckDriverTruckEntity> truckDriverTrucks;
 
     // Getters y Setters

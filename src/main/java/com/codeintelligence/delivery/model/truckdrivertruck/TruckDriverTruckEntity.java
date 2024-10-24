@@ -2,6 +2,7 @@ package com.codeintelligence.delivery.model.truckdrivertruck;
 
 import com.codeintelligence.delivery.model.truck.TruckEntity;
 import com.codeintelligence.delivery.model.truckdriver.TruckDriverEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class TruckDriverTruckEntity {
      */
     @ManyToOne(targetEntity = TruckDriverEntity.class)
     @JoinColumn(name = "id_truck_driver", nullable = false)
+    @JsonBackReference("truck_driver - trucks")
     private TruckDriverEntity truckDriver;
 
     /**
@@ -37,6 +39,7 @@ public class TruckDriverTruckEntity {
      */
     @ManyToOne(targetEntity = TruckEntity.class)
     @JoinColumn(name = "id_truck", nullable = false)
+    @JsonBackReference("truck - truckdrivertrucks")
     private TruckEntity truck;
 
     /**
