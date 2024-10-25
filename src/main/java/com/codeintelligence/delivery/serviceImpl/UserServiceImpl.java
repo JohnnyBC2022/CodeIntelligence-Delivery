@@ -37,9 +37,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity user = userRepository.findByUsername(authentication.getName()).orElse(null);
-        return user;
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("No authenticated user found");
+        }
+        return (UserEntity) authentication.getPrincipal();
     }
+
 
     /**
      * Saves the provided user data.

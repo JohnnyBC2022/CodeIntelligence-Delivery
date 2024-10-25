@@ -4,11 +4,10 @@ import com.codeintelligence.delivery.model.authentication.AuthenticationResponse
 import com.codeintelligence.delivery.model.user.UserEntity;
 import com.codeintelligence.delivery.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/api")
 public class AuthenticationController {
     private final AuthenticationService authService;
 
@@ -23,7 +22,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody UserEntity request) {
-        return ResponseEntity.ok(authService.register(request));
+        return ResponseEntity.ok(authService.authenticate(request));
     }
 
     @PostMapping("/user/signout")

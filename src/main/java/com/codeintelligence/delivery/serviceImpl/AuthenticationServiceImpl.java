@@ -81,7 +81,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void revokeAllTokensByUser(@NonNull UserEntity user) {
-        List<TokenEntity> validTokens = tokenRepository.findAllTokensByUser(user);
+        List<TokenEntity> validTokens = tokenRepository.findAllTokensByUser(user.getId());
 
         if(validTokens.isEmpty()){
             return;
