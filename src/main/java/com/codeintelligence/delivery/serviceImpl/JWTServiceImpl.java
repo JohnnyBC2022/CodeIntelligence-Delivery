@@ -18,7 +18,7 @@ import java.util.function.Function;
 @Service
 public class JWTServiceImpl implements JWTService {
 
-    private final String SECRET_KEY = "bWVqdW50YXNtaXBhbGFicmFzZWNyZXRhdWx0cmFsYXJnYWNvbmxvcXVlcXVlaXJhcw"; // Secret key for signing JWTs
+    private final String SECRET_KEY = "bWVqdW50YXNtaXBhbGFicmFzZWNyZXRhdWx0cmFsYXJnYWNvbmxvcXVlcXVlaXJhcw";
 
     private final TokenRepository tokenRepository;
 
